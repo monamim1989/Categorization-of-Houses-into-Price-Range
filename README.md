@@ -5,7 +5,11 @@ Categorization of Houses into Different Price Range using ML Algorithms from Ame
 The main goal of this project is to predict the range of selling price of house with a high degree of predictive accuracy using various Machine Learning methods. Given house sale data or explanatory variable such as number of bedrooms, number of bathrooms in unit, housing cost, annual commuting cost etc, we build our model. Next, the model is evaluated with respect to test data, and plot the prediction and coefficients. 
 
 # Dataset:
-I am using American Housing Survey 2017 data (household.csv in AHS 2017 National PUF v3.0 CSV.zip) https://www.census.gov/programs-surveys/ahs/data.2017.html. In the AHS microdata, the basic unit is an individual housing unit. Each record shows most of the information associated with a specific housing unit or individual, except for data items that could be used to personally identify that housing unit or individual. The dataset comprises of housing data features like TOTROOMS(Number of rooms in unit), UNITSF(Square footage of unit) etc., and target column as PRICE(Purchase price) to evaluate model and also check which amongst all features is the most correlated feature for price prediction. 
+I am using American Housing Survey 2017 data (household.csv in AHS 2017 National PUF v3.0 CSV.zip) https://www.census.gov/programs-surveys/ahs/data.2017.html. Since the dataset is very big, I am just providing the link. It could not be uploaded in github repo. There is another csv file called AHSDICT_15NOV19_21_17_31_97_S.csv that consist of the mapping information of each feature name to their actual meaning and data type information. This file is already present in github repo. In the AHS microdata, the basic unit is an individual housing unit. Each record shows most of the information associated with a specific housing unit or individual, except for data items that could be used to personally identify that housing unit or individual. The dataset comprises of housing data features like TOTROOMS(Number of rooms in unit), UNITSF(Square footage of unit) etc., and target column as MARKETVAL(Current market value of unit) to evaluate model and also check which amongst all features is the most correlated feature for price prediction. 
+
+Two primary datasets used are: 
+AHS 2017 Data - https://www.census.gov/programs-surveys/ahs/data.2017.html
+AHS Codebook Feature Name Mapping - ![Feature Mapping](AHSDICT_15NOV19_21_17_31_97_S.csv)
 
 # Pre-requisites:
 Python 3.7.0 <br />
@@ -15,6 +19,6 @@ Scipy<br />
 Scikit-learn<br />
 Matplotlib<br />
 
-# Tentative Plan:
-My plan is to define a machine learning model using most of the explanatory variables describing every aspect of residential homes and predict the final price of each home. 
+# Project Implementation:
+I defined machine learning models such as ...using most of the explanatory variables describing every aspect of residential homes and predict the final price of each home. 
 ![Implementation Plan](plan.png)
