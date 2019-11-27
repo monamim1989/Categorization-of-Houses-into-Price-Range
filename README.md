@@ -7,7 +7,7 @@ The main goal of this project is to predict the range of selling price of house 
 # Dataset:
 I am using American Housing Survey 2017 data (household.csv in AHS 2017 National PUF v3.0 CSV.zip) https://www.census.gov/programs-surveys/ahs/data.2017.html. Since the dataset is very big, I am just providing the link. It could not be uploaded in github repo. There is another csv file called AHSDICT_15NOV19_21_17_31_97_S.csv that consist of the mapping information of each feature name to their actual meaning and data type information. This file is already present in github repo. In the AHS microdata, the basic unit is an individual housing unit. Each record shows most of the information associated with a specific housing unit or individual, except for data items that could be used to personally identify that housing unit or individual. The dataset comprises of housing data features like TOTROOMS(Number of rooms in unit), UNITSF(Square footage of unit) etc., and target column as MARKETVAL(Current market value of unit) to evaluate model and also check which amongst all features is the most correlated feature for price prediction. 
 
-Two primary datasets used are: 
+Two primary datasets used are: <br />
 AHS 2017 Data - https://www.census.gov/programs-surveys/ahs/data.2017.html <br />
 AHS Codebook Feature Name Mapping - ![Feature Mapping](AHSDICT_15NOV19_21_17_31_97_S.csv)
 
