@@ -33,3 +33,5 @@ In this project, my aim is to implement algorithms which will be able to learn a
 # Code Execution Details:
 Since the input AHS 2017 dataset is very big (around 441 MB), and I am executing four different ML algorithms, the entire code takes 15 minutes (approx..) to execute. I have also prepared 15 test codes for my code, which can be verified using pytest. 
 ![Pytest](doc/code_exec.png)
+
+For my project, I have prepared two types of the same file - one .py and other .ipynb. The .py version is for testing using pytest. I am applying different machine learning algorithms and using a big dataset. Therefore, my .ipynb file became too large (around 90MB) which cannot be uploaded in github repo as it is. Therefore, I prepared a PDF copy of .ipynb file with all outputs that got generated, so that outputs of program are visible. Also, I cleared all outputs for .ipynb file and uploaded that as well.
