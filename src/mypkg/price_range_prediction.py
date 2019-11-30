@@ -4,7 +4,8 @@
 # Final Project
 # Categorization of Houses into Different Price Range using ML Algorithms from American Housing Survey 2017 Dataset
 
-# The main goal of this project is to predict the range of selling price of house with a high degree of predictive accuracy using various # # Machine Learning methods. Given house sale data or explanatory variable such as number of bedrooms, number of bathrooms in unit, housing # cost, annual commuting cost etc, we build our model. Next, the model is evaluated with respect to test data, and plot the prediction and # coefficients.
+# The main goal of this project is to predict the range of selling price of house with a high degree of predictive accuracy using various 
+# Machine Learning methods. Given house sale data or explanatory variable such as number of bedrooms, number of bathrooms in unit, housing # cost, annual commuting cost etc, we build our model. Next, the model is evaluated with respect to test data, and plot the prediction and # coefficients.
 
 # For my project, I have prepared two types of the same file - one .py and other .ipynb. The .py version is for testing using pytest. I am # applying different machine learning algorithms and using a big dataset. Therefore, my .ipynb file became too large (around 90MB) which 
 # cannot be uploaded in github repo as it is. Therefore, I prepared a PDF copy of .ipynb file with all outputs that got generated, so that # outputs of program are visible. Also, I cleared all outputs for .ipynb file and uploaded that as well. All the relevant documents along 
