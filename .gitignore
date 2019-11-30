@@ -1,0 +1,8 @@
+.idea/
+src/*.egg-info/
+src/mypkg/__pycache__/
+tests/__pycache__/
+test_hidden.py
+solutions.py
+.DS_Store
+

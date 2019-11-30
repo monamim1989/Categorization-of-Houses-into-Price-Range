@@ -29,3 +29,7 @@ In this project, my aim is to implement algorithms which will be able to learn a
 •	K-Nearest Neighbor (KNeighborsClassifier)<br />
 •	Logistic Regression (LogisticRegression)<br />
 •	Decision Tree (DecisionTreeClassifier)<br />
+
+# Code Execution Details:
+Since the input AHS 2017 dataset is very big (around 441 MB), and I am executing four different ML algorithms, the entire code takes 15 minutes (approx..) to execute. I have also prepared 15 test codes for my code, which can be verified using pytest. 
+![Pytest](code_exec.png)
