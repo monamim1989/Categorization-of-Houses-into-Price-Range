@@ -21,7 +21,7 @@ Matplotlib<br />
 
 # Project Implementation:
 I defined machine learning models using most of the explanatory variables describing every aspect of residential homes and predict the final price of each home. 
-![Implementation Plan](plan.png)
+![Implementation Plan](doc/plan.png)
 
 # Algorithms Implemented:
 In this project, my aim is to implement algorithms which will be able to learn and classify the new observations to correct house price ranges. I decided to use below machine learning algorithms for the same-<br />
@@ -32,4 +32,4 @@ In this project, my aim is to implement algorithms which will be able to learn a
 
 # Code Execution Details:
 Since the input AHS 2017 dataset is very big (around 441 MB), and I am executing four different ML algorithms, the entire code takes 15 minutes (approx..) to execute. I have also prepared 15 test codes for my code, which can be verified using pytest. 
-![Pytest](code_exec.png)
+![Pytest](doc/code_exec.png)
