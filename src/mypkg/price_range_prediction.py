@@ -424,8 +424,10 @@ accuracy_val.append(test_accuracy_val)
 
 # Create a dataframe from accuracy results
 summary = pd.DataFrame({'Test Accuracy':accuracy_val}, index=classifiers)       
-#summary
+summary
 
-# For this particular problem, the algorithm with best accuracy value is DecisionTreeClassifier with test accuracy score of 59.87% and 
-# therefore it can be considered as a good classifier algorithm for house price range prediction problem. Also, the RandomForestClassifier # is close enough with 55.90% accuracy score. I have tried tuning each algorithm with different hyper-parameter values and finally kept the # best results for each. In this project we can say that in machine learning problems data processing and tuning makes the model more 
+# For this particular problem, the algorithm with best accuracy value is DecisionTreeClassifier with test accuracy score of 59.87% and
+# therefore it can be considered as a good classifier algorithm for house price range prediction problem. Also, the RandomForestClassifier
+# is close enough with 55.90% accuracy score. I have tried tuning each algorithm with different hyper-parameter values and finally kept the
+# best results for each. In this project we can say that in machine learning problems data processing and tuning makes the model more
 # accurate and efficient compare to non processed data. It also makes simple models quite accurate.
