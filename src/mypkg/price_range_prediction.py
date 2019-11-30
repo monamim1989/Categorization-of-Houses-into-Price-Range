@@ -13,11 +13,10 @@ from numpy import argmax
 import re
 import copy
 import matplotlib.pyplot as plt
-from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler, LabelEncoder, OneHotEncoder, MinMaxScaler
 from sklearn.model_selection import train_test_split
-pd.set_option('display.max_rows', 1000)
-pd.set_option('display.max_columns', 1000)
+#pd.set_option('display.max_rows', 1000)
+#pd.set_option('display.max_columns', 1000)
 import math
 from subprocess import call
 from IPython.display import Image
@@ -78,8 +77,6 @@ data = data[pd.notnull(data['MARKETVAL'])]
 # Final dimension of dataset to be used
 indexNames = data[ data['MARKETVAL'] < 50000 ].index
 data.drop(indexNames , inplace=True)
-data.head()
-data.shape
 
 
 # Checking distribution of data
@@ -113,17 +110,10 @@ for c in col_o:
                 e.append(c)
             elif j == 1:
                 e.append('J' + c)
-print(numeric)
-print(len(numeric))
-print(categorical)
-print(len(categorical))
-print(e)
 
 
 # Defining data_numeric which only has numerical features
 data_numeric = data.drop(categorical, axis = 1)
-data_numeric.shape
-data_numeric.head()
 
 
 # Getting rid of all NaN entries in data_numeric
@@ -133,13 +123,10 @@ for i in numeric:
         data_numeric = data_numeric.drop(i, axis = 1)
     else:
         data_numeric[i] = data_numeric[i].fillna(data_numeric[i].mean())
-data_numeric.head()
 
 
 # Defining data_categorical which only has categorical features
 data_categorical = data.drop(numeric, axis = 1)
-data_categorical.shape
-data_categorical.head()
 
 
 # Getting rid of all NaN entries in data_catagorical
@@ -168,7 +155,7 @@ for i in categorical:
         mode_val = freq_sorted[0]
         data_categorical[i] = data_categorical[i].fillna(mode_val)
         
-print(data_categorical.isnull().sum())
+#print(data_categorical.isnull().sum())
 
 
 # Concatenate numerical and categorical data
@@ -177,7 +164,6 @@ clean_data = pd.concat([data_numeric, data_categorical], axis=1, sort=False)
 
 # Remove duplicate columns after concatenation
 clean_data = clean_data.iloc[:,~clean_data.columns.duplicated()]
-clean_data.shape
 
 
 # Finally check if finally cleaned data is free of null values
@@ -229,9 +215,6 @@ for c in col_o:
                 e.append(c)
             elif j == 1:
                 e.append('J' + c)
-print(numeric)
-print(categorical)
-print(e)
 
 
 # Training and Test Data for numeric features
@@ -361,6 +344,13 @@ def train_model(X_train, X_test, classifier, **kwargs):
 # • K-Nearest Neighbor (KNeighborsClassifier)
 # • Decision Tree (DecisionTreeClassifier)
 
+
+# Test accuracy for all models for comparison later
+accuracy_val = []
+# List of Algorithms Mames
+classifiers = ['Random Forest', 'Logistic Regression', 'Knn (7 Neighbors)', 'Decision Tree']
+
+
 # Using Random Forest Classifier
 # The random forest is a model made up of many decision trees. Rather than just simply averaging the prediction of trees, this model uses 
 # two key concepts that gives it the name random:
@@ -370,11 +360,12 @@ def train_model(X_train, X_test, classifier, **kwargs):
 # splitting nodes in each tree considering a limited number of the features. The final predictions of the random forest are made by 
 # averaging the predictions of each individual tree.
 model = train_model(X_train, y_train_oh, RandomForestClassifier, random_state=20)
-accuracy(X_train, X_test, y_train, y_test, model)
+test_accuracy_val = accuracy(X_train, X_test, y_train, y_test, model)
+accuracy_val.append(test_accuracy_val)
 
 # Results: With RandomForestClassifier, the accuracy score were as below:
-# Training Accuracy –
-# Testing Accuracy –
+# Training Accuracy – 100.00%
+# Testing Accuracy – 55.90%
 
 
 # I also plotted a bar graph representing the top 10 features based on their importance in determining the house price range.
@@ -386,11 +377,12 @@ pd.Series(model.feature_importances_, x.columns).sort_values(ascending=True).nla
 # algorithm but a probabilistic classification model. Multi class classification is implemented by training multiple logistic regression 
 # classifiers, one for each of the K classes in the training dataset.
 model = train_model(X_train, y_train, LogisticRegression)
-accuracy(X_train, X_test, y_train, y_test, model)
+test_accuracy_val = accuracy(X_train, X_test, y_train, y_test, model)
+accuracy_val.append(test_accuracy_val)
 
 # Results: With LogisticRegression, the accuracy score were as below:
-# Training Accuracy –
-# Testing Accuracy –
+# Training Accuracy – 47.08%
+# Testing Accuracy – 46.68%
 
 
 # Using kNN Classifier
@@ -399,46 +391,33 @@ accuracy(X_train, X_test, y_train, y_test, model)
 # examples can be the euclidean distance between their feature vectors. The majority class among the k nearest neighbours is taken to be 
 # the class for the encountered example.
 model = train_model(X_train, y_train, KNeighborsClassifier, n_neighbors=6)
-accuracy(X_train, X_test, y_train, y_test, model)
+test_accuracy_val = accuracy(X_train, X_test, y_train, y_test, model)
+accuracy_val.append(test_accuracy_val)
 
 # Results: With KNeighborsClassifier, the accuracy score were as below:
-# Training Accuracy –
-# Testing Accuracy –
+# Training Accuracy – 60.04%
+# Testing Accuracy – 46.89%
 
 # Using Decision Tree Classifier
 # Decision tree classifier is a systematic approach for multiclass classification. It poses a set of questions to the dataset (related to 
 # its attributes/features). The decision tree classification algorithm can be visualized on a binary tree. On the root and each of the 
 # internal nodes, a question is posed and the data on that node is further split into separate records that have different characteristics. # The leaves of the tree refer to the classes in which the dataset is split.
 model = train_model(X_train, y_train, DecisionTreeClassifier, max_depth=10)
-accuracy(X_train, X_test, y_train, y_test, model)
+test_accuracy_val = accuracy(X_train, X_test, y_train, y_test, model)
+accuracy_val.append(test_accuracy_val)
 
 # Results: With DecisionTreeClassifier, the accuracy score were as below:
-# Training Accuracy –
-# Testing Accuracy –
+# Training Accuracy – 65.47%
+# Testing Accuracy – 59.87%
 
 
 # Conclusion
 # The purpose of this project was correlate and compare the above mentioned ML algorithms in order to check their performances.
-accuracy_val = []
 
-# List of Algorithms Mames
-classifiers = ['Random Forest', 'Logistic Regression', 'Knn (10 Neighbors)', 'Decision Tree']
-
-# List of Algorithms with Parameters
-models = [RandomForestClassifier(n_estimators=200, random_state=20), LogisticRegression(solver = 'lbfgs'),
-          KNeighborsClassifier(n_neighbors=7), DecisionTreeClassifier(max_depth=8)]
-
-for i in models:
-    model = i
-    model.fit(X_train, y_train)
-    y_pred_i = model.predict(X_test)
-    test_accuracy_val = accuracy_score(y_test.values, y_pred_i)
-    accuracy_val.append(test_accuracy_val)
-    
 # Create a dataframe from accuracy results
-summary = pd.DataFrame({'accuracy':accuracy_val}, index=classifiers)       
+summary = pd.DataFrame({'Test Accuracy':accuracy_val}, index=classifiers)       
 #summary
 
-# For this particular problem, the algorithm with best accuracy value is DecisionTreeClassifier with test accuracy score of 59.89% and 
+# For this particular problem, the algorithm with best accuracy value is DecisionTreeClassifier with test accuracy score of 59.87% and 
 # therefore it can be considered as a good classifier algorithm for house price range prediction problem. Also, the RandomForestClassifier # is close enough with 55.90% accuracy score. I have tried tuning each algorithm with different hyper-parameter values and finally kept the # best results for each. In this project we can say that in machine learning problems data processing and tuning makes the model more 
 # accurate and efficient compare to non processed data. It also makes simple models quite accurate.
