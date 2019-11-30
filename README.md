@@ -20,5 +20,12 @@ Scikit-learn<br />
 Matplotlib<br />
 
 # Project Implementation:
-I defined machine learning models such as ...using most of the explanatory variables describing every aspect of residential homes and predict the final price of each home. 
+I defined machine learning models using most of the explanatory variables describing every aspect of residential homes and predict the final price of each home. 
 ![Implementation Plan](plan.png)
+
+# Algorithms Implemented:
+In this project, my aim is to implement algorithms which will be able to learn and classify the new observations to correct house price ranges. I decided to use below machine learning algorithms for the same-<br />
+•	Random Forest (RandomForestClassifier)<br />
+•	K-Nearest Neighbor (KNeighborsClassifier)<br />
+•	Logistic Regression (LogisticRegression)<br />
+•	Decision Tree (DecisionTreeClassifier)<br />
