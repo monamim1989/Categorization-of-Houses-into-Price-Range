@@ -416,7 +416,7 @@ accuracy_val.append(test_accuracy_val)
 
 # Results: With DecisionTreeClassifier, the accuracy score were as below:
 # Training Accuracy – 65.47%
-# Testing Accuracy – 59.87%
+# Testing Accuracy – 59.88%
 
 
 # Conclusion
@@ -426,7 +426,7 @@ accuracy_val.append(test_accuracy_val)
 summary = pd.DataFrame({'Test Accuracy':accuracy_val}, index=classifiers)       
 summary
 
-# For this particular problem, the algorithm with best accuracy value is DecisionTreeClassifier with test accuracy score of 59.87% and
+# For this particular problem, the algorithm with best accuracy value is DecisionTreeClassifier with test accuracy score of 59.88% and
 # therefore it can be considered as a good classifier algorithm for house price range prediction problem. Also, the RandomForestClassifier
 # is close enough with 55.90% accuracy score. I have tried tuning each algorithm with different hyper-parameter values and finally kept the
 # best results for each. In this project we can say that in machine learning problems data processing and tuning makes the model more
