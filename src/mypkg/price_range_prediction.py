@@ -4,10 +4,15 @@
 # Final Project
 # Categorization of Houses into Different Price Range using ML Algorithms from American Housing Survey 2017 Dataset
 
-# The main goal of this project is to predict the range of selling price of house with a high degree of predictive accuracy using various # # Machine Learning methods. Given house sale data or explanatory variable such as number of bedrooms, number of bathrooms in unit, housing # cost, annual commuting cost etc, we build our model. Next, the model is evaluated with respect to test data, and plot the prediction and # coefficients.
+# The main goal of this project is to predict the range of selling price of house with a high degree of predictive accuracy using various 
+# Machine Learning methods. Given house sale data or explanatory variable such as number of bedrooms, number of bathrooms in unit, housing 
+# cost, annual commuting cost etc, we build our model. Next, the model is evaluated with respect to test data, and plot the prediction and 
+# coefficients.
 
-# For my project, I have prepared two types of the same file - one .py and other .ipynb. The .py version is for testing using pytest. I am # applying different machine learning algorithms and using a big dataset. Therefore, my .ipynb file became too large (around 90MB) which 
-# cannot be uploaded in github repo as it is. Therefore, I prepared a PDF copy of .ipynb file with all outputs that got generated, so that # outputs of program are visible. Also, I cleared all outputs for .ipynb file and uploaded that as well. All the relevant documents along 
+# For my project, I have prepared two types of the same file - one .py and other .ipynb. The .py version is for testing using pytest. I am 
+# applying different machine learning algorithms and using a big dataset. Therefore, my .ipynb file became too large (around 90MB) which 
+# cannot be uploaded in github repo as it is. Therefore, I prepared a PDF copy of .ipynb file with all outputs that got generated, so that 
+# outputs of program are visible. Also, I cleared all outputs for .ipynb file and uploaded that as well. All the relevant documents along 
 # with the .ipynb with all generated outputs is present in google drive -
 # https://drive.google.com/drive/u/0/folders/1Or1xQ5GVPU1sCB3hY7V5pAKYYp-aP2Nd
 
@@ -41,10 +46,14 @@ from sklearn.linear_model import LinearRegression
 
 # Loading the dataset
 # We are using American Housing Survey 2017 data https://www.census.gov/programs-surveys/ahs/data/2017/ahs-2017-public-use-file--puf-/ahs-
-# 2017-national-public-use-file--puf-.html (household.csv in AHS 2017 National PUF v3.0 CSV.zip). Since the dataset is very big, I am just # providing the link. It could not be uploaded in github repo. There is another csv file called AHSDICT_15NOV19_21_17_31_97_S.csv that 
+# 2017-national-public-use-file--puf-.html (household.csv in AHS 2017 National PUF v3.0 CSV.zip). Since the dataset is very big, I am just 
+# providing the link. It could not be uploaded in github repo. There is another csv file called AHSDICT_15NOV19_21_17_31_97_S.csv that 
 # consist of the mapping information of each feature name to their actual meaning and data type information. This file is already present 
-# in github repo. In the AHS microdata, the basic unit is an individual housing unit. Each record shows most of the information associated # with a specific housing unit or individual, except for data items that could be used to personally identify that housing unit or 
-# individual. Our dataset comprises of housing data features like TOTROOMS(Number of rooms in unit), PERPOVLVL(Household income as percent # of poverty threshold (rounded)), COMCOST(Total annual commuting cost), JBATHROOMS(Number of bathrooms in unit), UNITSF(Square footage of # unit), JGARAGE(Flag indicating unit has a garage or carport), JFIREPLACE(Flag indicating unit has a useable fireplace) etc., and target 
+# in github repo. In the AHS microdata, the basic unit is an individual housing unit. Each record shows most of the information associated 
+# with a specific housing unit or individual, except for data items that could be used to personally identify that housing unit or 
+# individual. Our dataset comprises of housing data features like TOTROOMS(Number of rooms in unit), PERPOVLVL(Household income as percent 
+# of poverty threshold (rounded)), COMCOST(Total annual commuting cost), JBATHROOMS(Number of bathrooms in unit), UNITSF(Square footage of 
+# unit), JGARAGE(Flag indicating unit has a garage or carport), JFIREPLACE(Flag indicating unit has a useable fireplace) etc., and target 
 # column as MARKETVAL(Current market value of unit) to evaluate model and also check which amongst all features is the most correlated 
 # feature for price predication.
 data = pd.read_csv("household.csv")
@@ -183,7 +192,8 @@ corr_matrix["MARKETVAL"].sort_values(ascending=False)
 #corr_matrix.style.background_gradient(cmap='coolwarm').set_precision(2)
 
 
-# The dataset was cleaned to make it free from erroneous or irrelevant data. By filling up missing values, removing rows and reducing data # size, the final dataset was (36358 rows X 1007 columns).
+# The dataset was cleaned to make it free from erroneous or irrelevant data. By filling up missing values, removing rows and reducing data 
+# size, the final dataset was (36358 rows X 1007 columns).
 
 
 # Data Split
@@ -409,7 +419,8 @@ accuracy_val.append(test_accuracy_val)
 # Using Decision Tree Classifier
 # Decision tree classifier is a systematic approach for multiclass classification. It poses a set of questions to the dataset (related to 
 # its attributes/features). The decision tree classification algorithm can be visualized on a binary tree. On the root and each of the 
-# internal nodes, a question is posed and the data on that node is further split into separate records that have different characteristics. # The leaves of the tree refer to the classes in which the dataset is split.
+# internal nodes, a question is posed and the data on that node is further split into separate records that have different characteristics. 
+# The leaves of the tree refer to the classes in which the dataset is split.
 model = train_model(X_train, y_train, DecisionTreeClassifier, max_depth=8)
 test_accuracy_val = accuracy(X_train, X_test, y_train, y_test, model)
 accuracy_val.append(test_accuracy_val)
@@ -427,5 +438,7 @@ summary = pd.DataFrame({'Test Accuracy':accuracy_val}, index=classifiers)
 summary
 
 # For this particular problem, the algorithm with best accuracy value is DecisionTreeClassifier with test accuracy score of 59.83% and 
-# therefore it can be considered as a good classifier algorithm for house price range prediction problem. Also, the RandomForestClassifier # is close enough with 55.86% accuracy score. I have tried tuning each algorithm with different hyper-parameter values and finally kept the # best results for each. In this project we can say that in machine learning problems data processing and tuning makes the model more 
+# therefore it can be considered as a good classifier algorithm for house price range prediction problem. Also, the RandomForestClassifier 
+# is close enough with 55.86% accuracy score. I have tried tuning each algorithm with different hyper-parameter values and finally kept the 
+# best results for each. In this project we can say that in machine learning problems data processing and tuning makes the model more 
 # accurate and efficient compare to non processed data. It also makes simple models quite accurate.
