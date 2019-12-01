@@ -20,7 +20,7 @@ def test_case2():
 # Testing if number of columns of dataset after data cleaning remains correct (input dataset always remains the same, so this test should 
 # always satisfy
 def test_case3():
-    assert(len(clean_data.columns) == 1006)
+    assert(len(clean_data.columns) == 1007)
     
     
 # Testing if all Nan/Null entries are replaced in final dataset

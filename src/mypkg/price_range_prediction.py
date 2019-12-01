@@ -4,10 +4,7 @@
 # Final Project
 # Categorization of Houses into Different Price Range using ML Algorithms from American Housing Survey 2017 Dataset
 
-# The main goal of this project is to predict the range of selling price of house with a high degree of predictive accuracy using various 
-# Machine Learning methods. Given house sale data or explanatory variable such as number of bedrooms, number of bathrooms in unit, housing
-# cost, annual commuting cost etc, we build our model. Next, the model is evaluated with respect to test data, and plot the prediction and
-# coefficients.
+# The main goal of this project is to predict the range of selling price of house with a high degree of predictive accuracy using various # # Machine Learning methods. Given house sale data or explanatory variable such as number of bedrooms, number of bathrooms in unit, housing # cost, annual commuting cost etc, we build our model. Next, the model is evaluated with respect to test data, and plot the prediction and # coefficients.
 
 # For my project, I have prepared two types of the same file - one .py and other .ipynb. The .py version is for testing using pytest. I am # applying different machine learning algorithms and using a big dataset. Therefore, my .ipynb file became too large (around 90MB) which 
 # cannot be uploaded in github repo as it is. Therefore, I prepared a PDF copy of .ipynb file with all outputs that got generated, so that # outputs of program are visible. Also, I cleared all outputs for .ipynb file and uploaded that as well. All the relevant documents along 
@@ -60,8 +57,8 @@ col_to_check = data.columns
 data[col_to_check] = data[col_to_check].replace({'\'':''}, regex=True)
 
 
-# The column CONTROL is not relevant to our problem, and all values of JRENT is NaN, so we can remove that 
-col_to_remo = ['CONTROL', 'JRENT']
+# The column CONTROL is not relevant to our problem, so we can remove that 
+col_to_remo = ['CONTROL']
 data = data.drop(col_to_remo, axis = 1)
 
 
@@ -128,6 +125,8 @@ data_numeric = data.drop(categorical, axis = 1)
 data_numeric = data_numeric.fillna(data_numeric.mean())
 for i in numeric:
     if math.isnan(float(data_numeric[i].mean())):
+        # drop the unnecessary columns
+        print("Dropping the Column: ", i)
         data_numeric = data_numeric.drop(i, axis = 1)
     else:
         data_numeric[i] = data_numeric[i].fillna(data_numeric[i].mean())
@@ -184,9 +183,10 @@ corr_matrix["MARKETVAL"].sort_values(ascending=False)
 #corr_matrix.style.background_gradient(cmap='coolwarm').set_precision(2)
 
 
-# The dataset was cleaned to make it free from erroneous or irrelevant data. By filling up missing values, removing rows and reducing data # size, the final dataset was (36358 rows X 1006 columns).
+# The dataset was cleaned to make it free from erroneous or irrelevant data. By filling up missing values, removing rows and reducing data # size, the final dataset was (36358 rows X 1007 columns).
 
 
+# Data Split
 # Now we will separate the Test Data and Train Data. Will keep 30% of the data for Testing purpose and rest for training purpose.
 # Separating out the target
 y = clean_data['MARKETVAL']
@@ -367,13 +367,13 @@ classifiers = ['Random Forest', 'Logistic Regression', 'Knn (7 Neighbors)', 'Dec
 # The random forest combines hundreds or thousands of decision trees, trains each one on a slightly different set of the observations, 
 # splitting nodes in each tree considering a limited number of the features. The final predictions of the random forest are made by 
 # averaging the predictions of each individual tree.
-model = train_model(X_train, y_train_oh, RandomForestClassifier, random_state=20)
+model = train_model(X_train, y_train_oh, RandomForestClassifier, n_estimators=200, random_state=20)
 test_accuracy_val = accuracy(X_train, X_test, y_train, y_test, model)
 accuracy_val.append(test_accuracy_val)
 
 # Results: With RandomForestClassifier, the accuracy score were as below:
 # Training Accuracy – 100.00%
-# Testing Accuracy – 55.90%
+# Testing Accuracy – 55.86%
 
 
 # I also plotted a bar graph representing the top 10 features based on their importance in determining the house price range.
@@ -384,7 +384,7 @@ pd.Series(model.feature_importances_, x.columns).sort_values(ascending=True).nla
 # Logistic regression is one of the most fundamental and widely used Machine Learning Algorithms. Logistic regression is not a regression 
 # algorithm but a probabilistic classification model. Multi class classification is implemented by training multiple logistic regression 
 # classifiers, one for each of the K classes in the training dataset.
-model = train_model(X_train, y_train, LogisticRegression)
+model = train_model(X_train, y_train, LogisticRegression,solver='lbfgs')
 test_accuracy_val = accuracy(X_train, X_test, y_train, y_test, model)
 accuracy_val.append(test_accuracy_val)
 
@@ -398,7 +398,7 @@ accuracy_val.append(test_accuracy_val)
 # the data. Whenever a new example is encountered, its k nearest neighbours from the training data are examined. Distance between two 
 # examples can be the euclidean distance between their feature vectors. The majority class among the k nearest neighbours is taken to be 
 # the class for the encountered example.
-model = train_model(X_train, y_train, KNeighborsClassifier, n_neighbors=6)
+model = train_model(X_train, y_train, KNeighborsClassifier, n_neighbors=7)
 test_accuracy_val = accuracy(X_train, X_test, y_train, y_test, model)
 accuracy_val.append(test_accuracy_val)
 
@@ -410,13 +410,13 @@ accuracy_val.append(test_accuracy_val)
 # Decision tree classifier is a systematic approach for multiclass classification. It poses a set of questions to the dataset (related to 
 # its attributes/features). The decision tree classification algorithm can be visualized on a binary tree. On the root and each of the 
 # internal nodes, a question is posed and the data on that node is further split into separate records that have different characteristics. # The leaves of the tree refer to the classes in which the dataset is split.
-model = train_model(X_train, y_train, DecisionTreeClassifier, max_depth=10)
+model = train_model(X_train, y_train, DecisionTreeClassifier, max_depth=8)
 test_accuracy_val = accuracy(X_train, X_test, y_train, y_test, model)
 accuracy_val.append(test_accuracy_val)
 
 # Results: With DecisionTreeClassifier, the accuracy score were as below:
-# Training Accuracy – 65.47%
-# Testing Accuracy – 59.88%
+# Training Accuracy – 65.45%
+# Testing Accuracy – 59.83%
 
 
 # Conclusion
@@ -426,8 +426,6 @@ accuracy_val.append(test_accuracy_val)
 summary = pd.DataFrame({'Test Accuracy':accuracy_val}, index=classifiers)       
 summary
 
-# For this particular problem, the algorithm with best accuracy value is DecisionTreeClassifier with test accuracy score of 59.88% and
-# therefore it can be considered as a good classifier algorithm for house price range prediction problem. Also, the RandomForestClassifier
-# is close enough with 55.90% accuracy score. I have tried tuning each algorithm with different hyper-parameter values and finally kept the
-# best results for each. In this project we can say that in machine learning problems data processing and tuning makes the model more
+# For this particular problem, the algorithm with best accuracy value is DecisionTreeClassifier with test accuracy score of 59.83% and 
+# therefore it can be considered as a good classifier algorithm for house price range prediction problem. Also, the RandomForestClassifier # is close enough with 55.86% accuracy score. I have tried tuning each algorithm with different hyper-parameter values and finally kept the # best results for each. In this project we can say that in machine learning problems data processing and tuning makes the model more 
 # accurate and efficient compare to non processed data. It also makes simple models quite accurate.

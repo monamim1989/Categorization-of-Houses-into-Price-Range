@@ -24,12 +24,12 @@ def test_case6():
     
 # Testing if number of rows and columns of train dataset after concatenation remains correct (input dataset always remains the same, so this # test should always satisfy
 def test_case7():
-    assert(len(X_train.index) == 25450 and len(X_train.columns) == 1005)
+    assert(len(X_train.index) == 25450 and len(X_train.columns) == 1006)
     
     
 # Testing if number of rows and columns of test dataset after concatenation remains correct (input dataset always remains the same, so this # test should always satisfy
 def test_case8():
-    assert(len(X_test.index) == 10908 and len(X_test.columns) == 1005)
+    assert(len(X_test.index) == 10908 and len(X_test.columns) == 1006)
     
 
 
