@@ -1,19 +1,19 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# Final Project
+# FINAL PROJECT
 # Categorization of Houses into Different Price Range using ML Algorithms from American Housing Survey 2017 Dataset
 
 # The main goal of this project is to predict the range of selling price of house with a high degree of predictive accuracy using various 
 # Machine Learning methods. Given house sale data or explanatory variable such as number of bedrooms, number of bathrooms in unit, housing 
-# cost, annual commuting cost etc, we build our model. Next, the model is evaluated with respect to test data, and plot the prediction and 
+# cost, annual commuting cost etc, the model is built. Next, the model is evaluated with respect to test data, and plot the prediction and 
 # coefficients.
 
-# For my project, I have prepared two types of the same file - one .py and other .ipynb. The .py version is for testing using pytest. I am 
-# applying different machine learning algorithms and using a big dataset. Therefore, my .ipynb file became too large (around 90MB) which 
-# cannot be uploaded in github repo as it is. Therefore, I prepared a PDF copy of .ipynb file with all outputs that got generated, so that 
-# outputs of program are visible. Also, I cleared all outputs for .ipynb file and uploaded that as well. All the relevant documents along 
-# with the .ipynb with all generated outputs is present in google drive -
+# For my project, I have prepared two types of file for the same code - one .py and other .ipynb. The .py version is for testing using 
+# pytest. I am applying different machine learning algorithms and using a big dataset. Therefore, my .ipynb file became too large (around 
+# 90MB) which cannot be uploaded in github repo as it is. Therefore, I prepared a PDF copy of .ipynb file with all outputs that got 
+# generated, so that outputs of program are visible. Also, I cleared all outputs for .ipynb file and uploaded that as well. All the 
+# relevant documents along with the .ipynb with all generated outputs is present in google drive -
 # https://drive.google.com/drive/u/0/folders/1Or1xQ5GVPU1sCB3hY7V5pAKYYp-aP2Nd
 
 # Importing necessary packages
@@ -34,33 +34,28 @@ from IPython.display import display
 import warnings; warnings.simplefilter('ignore')
 
 # Learning Libraries
-from sklearn.metrics import accuracy_score, roc_curve, auc, confusion_matrix
-#from sklearn import tree
-from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import accuracy_score
 from sklearn.tree import DecisionTreeClassifier, export_graphviz
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.linear_model import LinearRegression  
+from sklearn.neighbors import KNeighborsClassifier 
 
 
 # Loading the dataset
-# We are using American Housing Survey 2017 data https://www.census.gov/programs-surveys/ahs/data/2017/ahs-2017-public-use-file--puf-/ahs-
-# 2017-national-public-use-file--puf-.html (household.csv in AHS 2017 National PUF v3.0 CSV.zip). Since the dataset is very big, I am just 
-# providing the link. It could not be uploaded in github repo. There is another csv file called AHSDICT_15NOV19_21_17_31_97_S.csv that 
-# consist of the mapping information of each feature name to their actual meaning and data type information. This file is already present 
-# in github repo. In the AHS microdata, the basic unit is an individual housing unit. Each record shows most of the information associated 
-# with a specific housing unit or individual, except for data items that could be used to personally identify that housing unit or 
-# individual. Our dataset comprises of housing data features like TOTROOMS(Number of rooms in unit), PERPOVLVL(Household income as percent 
-# of poverty threshold (rounded)), COMCOST(Total annual commuting cost), JBATHROOMS(Number of bathrooms in unit), UNITSF(Square footage of 
-# unit), JGARAGE(Flag indicating unit has a garage or carport), JFIREPLACE(Flag indicating unit has a useable fireplace) etc., and target 
-# column as MARKETVAL(Current market value of unit) to evaluate model and also check which amongst all features is the most correlated 
-# feature for price predication.
+# I am using American Housing Survey 2017 data https://www.census.gov/programs-surveys/ahs/data/2017/ahs-2017-public-use-file--puf-/ahs-
+# 2017-national-public-use-file--puf-.html (household.csv in AHS 2017 National PUF v3.0 CSV.zip). Since the dataset is very big (441 MB), I # am just providing the link. It could not be uploaded in github repo. There is another csv file called AHSDICT_15NOV19_21_17_31_97_S.csv 
+# that consist of the mapping information of each feature name to their actual meaning and data type information. This file is already 
+# present in github repo. In the AHS microdata, the basic unit is an individual housing unit. Each record shows most of the information 
+# associated with a specific housing unit or individual, except for data items that could be used to personally identify that housing unit # or individual. The dataset comprises of housing data features like TOTROOMS(Number of rooms in unit), PERPOVLVL(Household income as 
+# percent of poverty threshold (rounded)), COMCOST(Total annual commuting cost), JBATHROOMS(Number of bathrooms in unit), UNITSF(Square 
+# footage of unit), JGARAGE(Flag indicating unit has a garage or carport), JFIREPLACE(Flag indicating unit has a useable fireplace) etc., 
+# and target column as MARKETVAL(Current market value of unit) to evaluate model and also check which amongst all features is the most 
+# correlated feature for price predication.
 data = pd.read_csv("household.csv")
 headings = pd.read_csv("AHSDICT_15NOV19_21_17_31_97_S.csv", encoding = "ISO-8859-1")
 
 
-# Data Cleaning
+# DATA CLEANING
 # Formatting the columns to check
 col_to_check = data.columns
 data[col_to_check] = data[col_to_check].replace({'\'':''}, regex=True)
@@ -196,8 +191,8 @@ corr_matrix["MARKETVAL"].sort_values(ascending=False)
 # size, the final dataset was (36358 rows X 1007 columns).
 
 
-# Data Split
-# Now we will separate the Test Data and Train Data. Will keep 30% of the data for Testing purpose and rest for training purpose.
+# DATA SPLIT
+# Now the Test Data and Train Data will be separated. Will keep 30% of the data for Testing purpose and rest for training purpose.
 # Separating out the target
 y = clean_data['MARKETVAL']
 # Separating out the features
@@ -276,6 +271,7 @@ X_train = X_train.iloc[:,~X_train.columns.duplicated()]
 X_test = X_test.iloc[:,~X_test.columns.duplicated()]
 
 
+# FEATURE ENCODING
 # Final formatting before applying algorithms
 y_train = pd.DataFrame(y_train) 
 y_train = y_train.reset_index(drop=True)
@@ -285,7 +281,7 @@ y_test = pd.DataFrame(y_test)
 y_test = y_test.reset_index(drop=True)
 y_test_int = y_test.astype(int)
 
-# Since, we want to classify houses into different price ranges, we will need to perform feature encoding for various price ranges.
+# Since, I want to classify houses into different price ranges, I will need to perform feature encoding for various price ranges.
 # Function to assign code for different price ranges
 def price_range(price):
     if price < 100000:
@@ -333,7 +329,7 @@ oh.fit(y_train_le)
 
 y_train_oh = oh.transform(y_train_le)
 
-# Performance Measures
+# PERFORMANCE MEASURES
 # The function accuracy is used to calculate accuracy scores for both training and testing dataset for different ML models. The function
 # train_model is used to train and fit the data for different classifier models.
 # Calculating accuracy score for training and testing datasets
@@ -354,7 +350,7 @@ def train_model(X_train, X_test, classifier, **kwargs):
     return model
 
 
-# Algorithms Implemented
+# ALGORITHMS IMPLEMENTED
 # In this project, my aim was to implement algorithms which will be able to learn and classify the new observations to correct house price 
 # ranges. I decided to use below machine learning algorithms for the same-
 # • Random Forest (RandomForestClassifier)
@@ -426,19 +422,19 @@ test_accuracy_val = accuracy(X_train, X_test, y_train, y_test, model)
 accuracy_val.append(test_accuracy_val)
 
 # Results: With DecisionTreeClassifier, the accuracy score were as below:
-# Training Accuracy – 65.45%
-# Testing Accuracy – 59.83%
+# Training Accuracy – 65.47%
+# Testing Accuracy – 59.89%
 
 
-# Conclusion
+# CONCLUSION
 # The purpose of this project was correlate and compare the above mentioned ML algorithms in order to check their performances.
 
 # Create a dataframe from accuracy results
 summary = pd.DataFrame({'Test Accuracy':accuracy_val}, index=classifiers)       
 summary
 
-# For this particular problem, the algorithm with best accuracy value is DecisionTreeClassifier with test accuracy score of 59.83% and 
+# For this particular problem, the algorithm with best accuracy value is DecisionTreeClassifier with test accuracy score of 59.89% and 
 # therefore it can be considered as a good classifier algorithm for house price range prediction problem. Also, the RandomForestClassifier 
-# is close enough with 55.86% accuracy score. I have tried tuning each algorithm with different hyper-parameter values and finally kept the 
-# best results for each. In this project we can say that in machine learning problems data processing and tuning makes the model more 
-# accurate and efficient compare to non processed data. It also makes simple models quite accurate.
+# is close enough with 55.86% accuracy score. Since the accuracy values are not very high, I have tried tuning each algorithm with 
+# different hyper-parameter values and finally kept the best results that I could get. In this project we can say that in machine learning # problems data processing and tuning makes the model more accurate and efficient compare to non processed data. It also makes simple 
+# models quite accurate.
