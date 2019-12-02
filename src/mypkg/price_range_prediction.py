@@ -341,6 +341,9 @@ def accuracy(X_train, X_test, y_train, y_test, model):
     y_pred_test = model.predict(X_test)
     test_accuracy = accuracy_score(y_test.values, y_pred_test)
     print(f"Test accuracy: {test_accuracy:0.2%}")
+    
+    # For comparison of models later
+    return test_accuracy
 
     
 # Function to train data based on different classifiers
